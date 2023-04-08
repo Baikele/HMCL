@@ -66,7 +66,12 @@ public class FeedbackPage extends SpinnerPane {
             kookapp.setSubtitle(i18n("feedback.kookapp.statement"));
             kookapp.setExternalLink("https://kook.top/Kx7n3t");
 
-            community.getContent().setAll(users, github, discord, kookapp);
+            IconedTwoLineListItem mctownQQ = new IconedTwoLineListItem();
+            mctownQQ.setImage(new Image("/assets/img/McTown.png"));
+            mctownQQ.setTitle(i18n("Mc小镇官方群"));
+            mctownQQ.setSubtitle(i18n("服务器问题反馈与交流"));
+            mctownQQ.setExternalLink("https://qq.mctown.cn");
+            community.getContent().setAll(users, github, discord, kookapp,mctownQQ);
         }
 
         content.getChildren().addAll(

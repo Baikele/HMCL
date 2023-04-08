@@ -97,31 +97,31 @@ public class AccountListPage extends DecoratorAnimatedPage implements DecoratorP
                 {
                     boxMethods.getStyleClass().add("advanced-list-box-content");
                     boxMethods.getChildren().add(new ClassTitle(i18n("account.create")));
-                    FXUtils.setLimitWidth(boxMethods, 200);
+                    FXUtils.setLimitWidth(boxMethods, 455);
 
-                    AdvancedListItem offlineItem = new AdvancedListItem();
-                    offlineItem.getStyleClass().add("navigation-drawer-item");
-                    offlineItem.setActionButtonVisible(false);
-                    offlineItem.setTitle(i18n("account.methods.offline"));
-                    offlineItem.setLeftGraphic(wrap(SVG::account));
-                    offlineItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_OFFLINE)));
-                    boxMethods.getChildren().add(offlineItem);
+//                    AdvancedListItem offlineItem = new AdvancedListItem();
+//                    offlineItem.getStyleClass().add("navigation-drawer-item");
+//                    offlineItem.setActionButtonVisible(false);
+//                    offlineItem.setTitle(i18n("account.methods.offline"));
+//                    offlineItem.setLeftGraphic(wrap(SVG::account));
+//                    offlineItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_OFFLINE)));
+//                    boxMethods.getChildren().add(offlineItem);
 
-                    AdvancedListItem mojangItem = new AdvancedListItem();
-                    mojangItem.getStyleClass().add("navigation-drawer-item");
-                    mojangItem.setActionButtonVisible(false);
-                    mojangItem.setTitle(i18n("account.methods.yggdrasil"));
-                    mojangItem.setLeftGraphic(wrap(SVG::mojang));
-                    mojangItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_MOJANG)));
-                    boxMethods.getChildren().add(mojangItem);
+//                    AdvancedListItem mojangItem = new AdvancedListItem();
+//                    mojangItem.getStyleClass().add("navigation-drawer-item");
+//                    mojangItem.setActionButtonVisible(false);
+//                    mojangItem.setTitle(i18n("account.methods.yggdrasil"));
+//                    mojangItem.setLeftGraphic(wrap(SVG::mojang));
+//                    mojangItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_MOJANG)));
+//                    boxMethods.getChildren().add(mojangItem);
 
-                    AdvancedListItem microsoftItem = new AdvancedListItem();
-                    microsoftItem.getStyleClass().add("navigation-drawer-item");
-                    microsoftItem.setActionButtonVisible(false);
-                    microsoftItem.setTitle(i18n("account.methods.microsoft"));
-                    microsoftItem.setLeftGraphic(wrap(SVG::microsoft));
-                    microsoftItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_MICROSOFT)));
-                    boxMethods.getChildren().add(microsoftItem);
+//                    AdvancedListItem microsoftItem = new AdvancedListItem();
+//                    microsoftItem.getStyleClass().add("navigation-drawer-item");
+//                    microsoftItem.setActionButtonVisible(false);
+//                    microsoftItem.setTitle(i18n("account.methods.microsoft"));
+//                    microsoftItem.setLeftGraphic(wrap(SVG::microsoft));
+//                    microsoftItem.setOnAction(e -> Controllers.dialog(new CreateAccountPane(Accounts.FACTORY_MICROSOFT)));
+//                    boxMethods.getChildren().add(microsoftItem);
 
                     VBox boxAuthServers = new VBox();
                     authServerItems = MappedObservableList.create(skinnable.authServersProperty(), server -> {
@@ -135,9 +135,9 @@ public class AccountListPage extends DecoratorAnimatedPage implements DecoratorP
                             skinnable.authServersProperty().remove(server);
                             e.consume();
                         });
-                        btnRemove.getStyleClass().add("toggle-icon4");
-                        btnRemove.setGraphic(SVG.close(Theme.blackFillBinding(), 14, 14));
-                        item.setRightGraphic(btnRemove);
+//                        btnRemove.getStyleClass().add("toggle-icon4");
+//                        btnRemove.setGraphic(SVG.close(Theme.blackFillBinding(), 14, 14));
+//                        item.setRightGraphic(btnRemove);
 
                         ObservableValue<String> title = BindingMapping.of(server, AuthlibInjectorServer::getName);
                         item.titleProperty().bind(title);
@@ -154,24 +154,29 @@ public class AccountListPage extends DecoratorAnimatedPage implements DecoratorP
 
                         return item;
                     });
+
+
                     Bindings.bindContent(boxAuthServers.getChildren(), authServerItems);
                     boxMethods.getChildren().add(boxAuthServers);
-                }
 
-                AdvancedListItem addAuthServerItem = new AdvancedListItem();
-                {
-                    addAuthServerItem.getStyleClass().add("navigation-drawer-item");
-                    addAuthServerItem.setTitle(i18n("account.injector.add"));
-                    addAuthServerItem.setSubtitle(i18n("account.methods.authlib_injector"));
-                    addAuthServerItem.setActionButtonVisible(false);
-                    addAuthServerItem.setLeftGraphic(wrap(SVG::plusCircleOutline));
-                    addAuthServerItem.setOnAction(e -> Controllers.dialog(new AddAuthlibInjectorServerPane()));
-                    VBox.setMargin(addAuthServerItem, new Insets(0, 0, 12, 0));
+                    AdvancedListItem tip = new AdvancedListItem();
+                    tip.setTitle("注释:\n\n请点击上方的按钮以完成登陆\n如果你还没有注册账号\n请在群内发送'注册'已完成注册");
+                    boxMethods.getChildren().add(tip);
                 }
-
+//                AdvancedListItem addAuthServerItem = new AdvancedListItem();
+//                {
+//                    addAuthServerItem.getStyleClass().add("navigation-drawer-item");
+//                    addAuthServerItem.setTitle(i18n("account.injector.add"));
+//                    addAuthServerItem.setSubtitle(i18n("account.methods.authlib_injector"));
+//                    addAuthServerItem.setActionButtonVisible(false);
+//                    addAuthServerItem.setLeftGraphic(wrap(SVG::plusCircleOutline));
+//                    addAuthServerItem.setOnAction(e -> Controllers.dialog(new AddAuthlibInjectorServerPane()));
+//                    VBox.setMargin(addAuthServerItem, new Insets(0, 0, 12, 0));
+//                }
+//
                 ScrollPane scrollPane = new ScrollPane(boxMethods);
                 VBox.setVgrow(scrollPane, Priority.ALWAYS);
-                setLeft(scrollPane, addAuthServerItem);
+                setLeft(scrollPane);
             }
 
             ScrollPane scrollPane = new ScrollPane();

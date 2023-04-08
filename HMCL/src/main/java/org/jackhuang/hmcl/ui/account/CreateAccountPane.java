@@ -305,8 +305,8 @@ public class CreateAccountPane extends JFXDialogLayout implements DialogAware {
                 GridPane.setColumnSpan(box, 2);
 
                 if (!IntegrityChecker.isOfficial()) {
-                    HintPane unofficialHint = new HintPane(MessageDialogPane.MessageType.WARNING);
-                    unofficialHint.setText(i18n("unofficial.hint"));
+                    HintPane unofficialHint = new HintPane(MessageDialogPane.MessageType.SUCCESS);
+                    unofficialHint.setText(i18n("如果你还没有注册账号，请点击注册按钮进行注册"));
                     vbox.getChildren().add(unofficialHint);
                 }
 
@@ -400,8 +400,8 @@ public class CreateAccountPane extends JFXDialogLayout implements DialogAware {
             int rowIndex = 0;
 
             if (!IntegrityChecker.isOfficial() && !(factory instanceof OfflineAccountFactory)) {
-                HintPane hintPane = new HintPane(MessageDialogPane.MessageType.WARNING);
-                hintPane.setSegment(i18n("unofficial.hint"));
+                HintPane hintPane = new HintPane(MessageDialogPane.MessageType.SUCCESS);
+                hintPane.setSegment(i18n("如果你还没有注册账号，请点击注册按钮进行注册"));
                 GridPane.setColumnSpan(hintPane, 2);
                 add(hintPane, 0, rowIndex);
 

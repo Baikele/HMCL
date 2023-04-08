@@ -61,8 +61,11 @@ import org.jackhuang.hmcl.util.javafx.BindingMapping;
 import org.jackhuang.hmcl.util.javafx.MappedObservableList;
 import org.jackhuang.hmcl.util.platform.JavaVersion;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -113,15 +116,31 @@ public final class MainPage extends StackPane implements DecoratorPage {
 
         setPadding(new Insets(20));
 
-        if (Metadata.isNightly() || (Metadata.isDev() && !Objects.equals(Metadata.VERSION, config().getHideAnnouncementVersion()))) {
-            announcementPane = new VBox(16);
-            if (Metadata.isNightly()) {
-                announcementPane.getChildren().add(new AnnouncementCard(i18n("update.channel.nightly.title"), i18n("update.channel.nightly.hint")));
-            } else if (Metadata.isDev()) {
-                announcementPane.getChildren().add(new AnnouncementCard(i18n("update.channel.dev.title"), i18n("update.channel.dev.hint")));
+//        if (Metadata.isNightly() || (Metadata.isDev() && !Objects.equals(Metadata.VERSION, config().getHideAnnouncementVersion()))) {
+//            announcementPane = new VBox(16);
+//            if (Metadata.isNightly()) {
+//                announcementPane.getChildren().add(new AnnouncementCard(i18n("update.channel.nightly.title"), i18n("update.channel.nightly.hint")));
+//            } else if (Metadata.isDev()) {
+//                announcementPane.getChildren().add(new AnnouncementCard(i18n("update.channel.dev.title"), i18n("update.channel.dev.hint")));
+//            }
+//            getChildren().add(announcementPane);
+//        }
+        announcementPane = new VBox(16);
+        try {
+            URL url = new URL("https://api.mctown.cn/Launcher/pctip.txt");
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            String inputLine;
+            StringBuilder sb = new StringBuilder();
+            while ((inputLine = in.readLine()) != null){
+                sb.append(inputLine.replaceAll("\\\\n\\\\", System.lineSeparator()));
             }
+            announcementPane.getChildren().add(new AnnouncementCard(i18n("update.channel.nightly.title"), sb.toString()));
             getChildren().add(announcementPane);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
 
         updatePane = new StackPane();
         updatePane.setVisible(false);

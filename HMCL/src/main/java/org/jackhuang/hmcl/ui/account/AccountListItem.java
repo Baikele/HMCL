@@ -76,9 +76,7 @@ public class AccountListItem extends RadioButton {
         String portableSuffix = account.isPortable() ? ", " + i18n("account.portable") : "";
         if (account instanceof AuthlibInjectorAccount) {
             AuthlibInjectorServer server = ((AuthlibInjectorAccount) account).getServer();
-            subtitle.bind(Bindings.concat(
-                    loginTypeName, ", ", i18n("account.injector.server"), ": ",
-                    Bindings.createStringBinding(server::getName, server), portableSuffix));
+            subtitle.bind(Bindings.concat(Bindings.createStringBinding(server::getName, server), portableSuffix));
         } else {
             subtitle.set(loginTypeName + portableSuffix);
         }
@@ -89,7 +87,7 @@ public class AccountListItem extends RadioButton {
         } else {
             title.bind(
                     account.getUsername().isEmpty() ? characterName :
-                            Bindings.concat(account.getUsername(), " - ", characterName));
+                            Bindings.concat(account.getUsername()));
         }
     }
 

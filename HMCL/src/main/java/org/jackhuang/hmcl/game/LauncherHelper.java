@@ -491,47 +491,47 @@ public final class LauncherHelper {
                 suggestions.add(i18n("launch.advice.too_large_memory_for_32bit"));
             }
 
-            if (violatedSuggestedConstraints != null) {
-                for (JavaVersionConstraint violatedSuggestedConstraint : violatedSuggestedConstraints) {
-                    switch (violatedSuggestedConstraint) {
-                        case MODDED_JAVA_7:
-                            suggestions.add(i18n("launch.advice.java.modded_java_7"));
-                            break;
-                        case MODDED_JAVA_8:
-                            // Minecraft>=1.7.10+Forge accepts Java 8
-                            if (javaVersion.getParsedVersion() < 8)
-                                suggestions.add(i18n("launch.advice.newer_java"));
-                            else
-                                suggestions.add(i18n("launch.advice.modded_java", 8, gameVersion));
-                            break;
-                        case MODDED_JAVA_16:
-                            // Minecraft<=1.17.1+Forge[37.0.0,37.0.60) not compatible with Java 17
-                            String forgePatchVersion = analyzer.getVersion(LibraryAnalyzer.LibraryType.FORGE)
-                                    .map(LibraryAnalyzer.LibraryType.FORGE::patchVersion)
-                                    .orElse(null);
-                            if (forgePatchVersion != null && VersionNumber.VERSION_COMPARATOR.compare(forgePatchVersion, "37.0.60") < 0)
-                                suggestions.add(i18n("launch.advice.forge37_0_60"));
-                            else
-                                suggestions.add(i18n("launch.advice.modded_java", 16, gameVersion));
-                            break;
-                        case MODDED_JAVA_17:
-                            suggestions.add(i18n("launch.advice.modded_java", 17, gameVersion));
-                            break;
-                        case VANILLA_JAVA_8_51:
-                            suggestions.add(i18n("launch.advice.java8_51_1_13"));
-                            break;
-                        case MODLAUNCHER_8:
-                            suggestions.add(i18n("launch.advice.modlauncher8"));
-                            break;
-                        case VANILLA_X86:
-                            if (setting.getNativesDirType() == NativesDirectoryType.VERSION_FOLDER
-                                    && org.jackhuang.hmcl.util.platform.Platform.isCompatibleWithX86Java()) {
-                                suggestions.add(i18n("launch.advice.vanilla_x86.translation"));
-                            }
-                            break;
-                    }
-                }
-            }
+//            if (violatedSuggestedConstraints != null) {
+//                for (JavaVersionConstraint violatedSuggestedConstraint : violatedSuggestedConstraints) {
+//                    switch (violatedSuggestedConstraint) {
+//                        case MODDED_JAVA_7:
+//                            suggestions.add(i18n("launch.advice.java.modded_java_7"));
+//                            break;
+//                        case MODDED_JAVA_8:
+//                            // Minecraft>=1.7.10+Forge accepts Java 8
+//                            if (javaVersion.getParsedVersion() < 8)
+//                                suggestions.add(i18n("launch.advice.newer_java"));
+//                            else
+//                                suggestions.add(i18n("launch.advice.modded_java", 8, gameVersion));
+//                            break;
+//                        case MODDED_JAVA_16:
+//                            // Minecraft<=1.17.1+Forge[37.0.0,37.0.60) not compatible with Java 17
+//                            String forgePatchVersion = analyzer.getVersion(LibraryAnalyzer.LibraryType.FORGE)
+//                                    .map(LibraryAnalyzer.LibraryType.FORGE::patchVersion)
+//                                    .orElse(null);
+//                            if (forgePatchVersion != null && VersionNumber.VERSION_COMPARATOR.compare(forgePatchVersion, "37.0.60") < 0)
+//                                suggestions.add(i18n("launch.advice.forge37_0_60"));
+//                            else
+//                                suggestions.add(i18n("launch.advice.modded_java", 16, gameVersion));
+//                            break;
+//                        case MODDED_JAVA_17:
+//                            suggestions.add(i18n("launch.advice.modded_java", 17, gameVersion));
+//                            break;
+//                        case VANILLA_JAVA_8_51:
+//                            suggestions.add(i18n("launch.advice.java8_51_1_13"));
+//                            break;
+//                        case MODLAUNCHER_8:
+//                            suggestions.add(i18n("launch.advice.modlauncher8"));
+//                            break;
+//                        case VANILLA_X86:
+//                            if (setting.getNativesDirType() == NativesDirectoryType.VERSION_FOLDER
+//                                    && org.jackhuang.hmcl.util.platform.Platform.isCompatibleWithX86Java()) {
+//                                suggestions.add(i18n("launch.advice.vanilla_x86.translation"));
+//                            }
+//                            break;
+//                    }
+//                }
+//            }
 
             // Cannot allocate too much memory exceeding free space.
             if (OperatingSystem.TOTAL_MEMORY > 0 && OperatingSystem.TOTAL_MEMORY < setting.getMaxMemory()) {
